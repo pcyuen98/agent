@@ -11,6 +11,7 @@
       "prefix": "app",
       "architect": {
         "build": {
+          "defaultConfiguration": "production",
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "www",
@@ -57,12 +58,12 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+  "buildOptimizer": false,
+  "optimization": false,
+  "vendorChunk": true,
+  "extractLicenses": false,
+  "sourceMap": true,
+  "namedChunks": true
             },
             "ci": {
               "progress": false
@@ -77,6 +78,7 @@
               "buildTarget": "app:build:production"
             },
             "development": {
+              "browserTarget": "my-project:build:development", 
               "buildTarget": "app:build:development"
             },
             "ci": {
