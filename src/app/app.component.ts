@@ -30,12 +30,14 @@ export class AppComponent {
   ) {}
 
   getCurrentPosition() {
+      console.log("getCurrentPosition...");
       this.geolocation$.pipe(take(1)).subscribe(
           position => {
               this.currentPositionUrl = this.getUrl(position);
               this.changeDetectorRef.markForCheck();
           },
           error => {
+              console.log("getCurrentPosition..." + error);
               this.error = error;
               this.changeDetectorRef.markForCheck();
           },
