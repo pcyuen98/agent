@@ -5,11 +5,12 @@ import {Subscription} from 'rxjs';
 import {take} from 'rxjs/operators';
 import {SAMPLE} from './samples/sample';
 import {SAMPLE_ASYNC} from './samples/sample-async';
-
+import { CommonModule } from '@angular/common';  
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
+  standalone: true,
   styleUrls: ['app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -37,7 +38,7 @@ export class AppComponent {
               this.changeDetectorRef.markForCheck();
           },
           error => {
-              console.log("getCurrentPosition..." + error);
+              console.log("getCurrentPosition error..." + error);
               this.error = error;
               this.changeDetectorRef.markForCheck();
           },

@@ -4,8 +4,9 @@
   Get my position!
 </button>
 
-<iframe
-  *ngIf="!!currentPositionUrl"
+@if(currentPositionUrl){ 
+
+  <iframe 
   width="425"
   height="350"
   frameborder="0"
@@ -14,3 +15,4 @@
   marginwidth="0"
   [src]="currentPositionUrl"
 ></iframe>
+}

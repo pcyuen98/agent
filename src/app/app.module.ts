@@ -1,29 +1,24 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
-
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
-import { AppComponent } from './app.component';
+import { CommonModule } from '@angular/common'; 
 import { AppRoutingModule } from './app-routing.module';
 
 import {LocationStrategy, PathLocationStrategy} from '@angular/common';
-import {FormsModule} from '@angular/forms';
 import {POSITION_OPTIONS} from '@ng-web-apis/geolocation';
 import {MapComponent} from './map/map.component';
-
-
+import { AppComponent } from './app.component';
 
 
 @NgModule({
-  declarations: [AppComponent, MapComponent],
-  imports: [BrowserModule, IonicModule.forRoot()
-      , AppRoutingModule
+  declarations: [MapComponent,],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
+  ],
+  imports: [BrowserModule, AppRoutingModule, CommonModule,
       ]
            ,
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-    ,
-
+  providers: [ 
   {
       provide: LocationStrategy,
       useClass: PathLocationStrategy,
@@ -34,6 +29,7 @@ import {MapComponent} from './map/map.component';
   }
   
   ],
-  bootstrap: [AppComponent],
+  
+  bootstrap: []
 })
 export class AppModule {}
