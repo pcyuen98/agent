@@ -7,10 +7,11 @@ import {LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {POSITION_OPTIONS} from '@ng-web-apis/geolocation';
 import {MapComponent} from './map/map.component';
 import { AppComponent } from './app.component';
+import { SafePipe } from './service/safePipe.service';
 
 
 @NgModule({
-  declarations: [MapComponent,],
+  declarations: [MapComponent,SafePipe],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA
