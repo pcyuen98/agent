@@ -10,7 +10,7 @@ export class AgentService {
   constructor(private httpClient: HttpClient) { }
 
   public getHTTPAgent(): any {
-    return this.httpClient.get('http://localhost:8080/json/get', { responseType: 'text' });
+    return this.httpClient.get('http://219.93.129.18:8080/json/get', { responseType: 'text' });
   }
 
   getAgent() {
