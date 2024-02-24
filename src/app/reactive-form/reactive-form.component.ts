@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, SecurityContext } from '@angular/
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { GeolocationService } from '@ng-web-apis/geolocation';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { AgentService } from '../service/agent.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class ReactiveFormComponent implements OnInit {
   form: any;
   agent: any;
   position: GeolocationPosition | null = null;
+  position2: GeolocationPosition | null = null;
   toggle = false;
   sampleURL: any = "//www.openstreetmap.org/export/embed.html?bbox=101.68899520000001,3.0765351,101.6989952,3.0865351&marker=3.0815351,101.6939952&layer=mapnik";
   
@@ -36,8 +37,37 @@ export class ReactiveFormComponent implements OnInit {
     this.getCurrentDummyPosition();
 
     this.agent = this.getHTTPAgent();
-
+    this.getCurrentPosition();
   }
+
+  getCurrentPosition() {
+    console.log("getCurrentPosition...");
+    this.geolocation$.pipe(take(1)).subscribe(
+        position => {
+            this.currentPositionUrl = this.getUrl(position);
+            this.changeDetectorRef.markForCheck();
+            console.log("this.currentPositionUrl-->" + this.currentPositionUrl);
+
+        },
+        error => {
+            console.log("getCurrentPosition error..." + error);
+            this.error = error;
+            this.changeDetectorRef.markForCheck();
+        },
+    );
+}
+
+private getUrl(position: GeolocationPosition): SafeResourceUrl {
+  const longitude = position.coords.longitude;
+  const latitude = position.coords.latitude;
+
+  let gpsURL = `//www.openstreetmap.org/export/embed.html?bbox=${longitude -
+  0.005},${latitude - 0.005},${longitude + 0.005},${latitude +
+  0.005}&marker=${position.coords.latitude},${
+  position.coords.longitude
+}&layer=mapnik`;
+  return this.domSanitizer.bypassSecurityTrustResourceUrl(gpsURL,);
+}
 
   initForm() {
     this.form = this.formBuilder.group({
@@ -110,3 +140,4 @@ export class ReactiveFormComponent implements OnInit {
             console.log("before:--->'" + this.sampleURL + "'");
       }
 }
+
