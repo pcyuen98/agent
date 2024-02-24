@@ -1,0 +1,7 @@
+{
+	"/json/*": {
+      "target": "http://219.93.129.18:8080",
+      "secure": false,
+	  "logLevel": "debug"
+      }
+    }
