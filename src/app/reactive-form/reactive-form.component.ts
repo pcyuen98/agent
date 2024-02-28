@@ -4,6 +4,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { GeolocationService } from '@ng-web-apis/geolocation';
 import { Subscription, take } from 'rxjs';
 import { AgentService } from '../service/agent.service';
+import { ActivatedRoute } from '@angular/router';
+import { Agent } from '../model/agent/agent';
 
 @Component({
   selector: 'app-reactive-form',
@@ -16,15 +18,19 @@ export class ReactiveFormComponent implements OnInit {
   position: GeolocationPosition | null = null;
   position2: GeolocationPosition | null = null;
   toggle = false;
-  sampleURL: any = "//www.openstreetmap.org/export/embed.html?bbox=101.68899520000001,3.0765351,101.6989952,3.0865351&marker=3.0815351,101.6939952&layer=mapnik";
-  
+  displayURL: any;
+
   currentPositionUrl: SafeResourceUrl | null = null;
   currentDummyPositionUrl: SafeResourceUrl | null = null;
   watchSubscription: Subscription | null = null;
   error: GeolocationPositionError | null = null;
   safeUrl: any;
 
+  id: any;
+  method: any;
+
   constructor(
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     readonly geolocation$: GeolocationService,
     private agentService: AgentService,
@@ -33,11 +39,13 @@ export class ReactiveFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.initForm();
-    this.getCurrentDummyPosition();
+    this.method = this.route.snapshot.paramMap.get("method");
+    console.log("method==>" + this.method);
 
-    this.agent = this.getHTTPAgent();
-    this.getCurrentPosition();
+    this.id = this.route.snapshot.paramMap.get("id");
+    console.log("id==>" + this.id);
+    this.agent = this.getHTTPAgent(this.id);
+    this.initForm();
   }
 
   getCurrentPosition() {
@@ -66,14 +74,36 @@ private getUrl(position: GeolocationPosition): SafeResourceUrl {
   0.005}&marker=${position.coords.latitude},${
   position.coords.longitude
 }&layer=mapnik`;
+
+ this.safeUrl = gpsURL;
+ console.log("safeUrl" + this.safeUrl);
+ this.submitToBE();
+
   return this.domSanitizer.bypassSecurityTrustResourceUrl(gpsURL,);
 }
 
+submitToBE() {
+  console.log('form data: ', this.form.value);
+  
+  let serializedForm = JSON.stringify(this.form.value);
+  //serializedForm.fullName = serializedForm.fullName + "2";
+  console.log('serializedForm: ', this.form.value);
+
+  this.form.patchValue(serializedForm);
+  this.form.value.fullName = "fullname2";
+  this.form.value.gpsUrl = this.safeUrl;
+  console.log('form data after: ', this.form.value);
+  this.agentService.addPost(serializedForm);
+}
   initForm() {
     this.form = this.formBuilder.group({
       fullName: [undefined],
       email: [undefined],
       contactNumber: [undefined],
+      url: [undefined],
+      desc: [undefined],
+      gpsUrl: [undefined],
+      user_id: [undefined],
       address: new FormGroup({
         fullAddress: new FormControl(),
         country: new FormControl(),
@@ -81,23 +111,30 @@ private getUrl(position: GeolocationPosition): SafeResourceUrl {
         city: new FormControl(),
       }),
     });
-
-    this.form.disable();
+    
+    let isUpdate: boolean =  ( this.method == "update");
+    if (isUpdate) {
+      this.form.disable();
+    }
+    else {
+      this.agent.user_id = this.id;
+    }
+    
   }
 
-  getHTTPAgent(): any {
-    this.agent = this.agentService.getHTTPAgent().subscribe((data: any) => {
+  getHTTPAgent(id: any): any {
+    this.agent = this.agentService.getHTTPAgent(id).subscribe((data: any) => {
       console.log(data); this.agent = data;
-
-      
 
       console.log("this.form.value-->" + this.form.value);
   
       console.log("this.agent-->" + this.agent);
      this.form.patchValue(JSON.parse(this.agent));
+     this.agent = JSON.parse(this.agent);
 
+     this.byPassURLSecurity(this.agent.gpsURL);
 
-      this.agent.disable;
+     this.agent.disable;
       
     }
       ,
@@ -110,34 +147,15 @@ private getUrl(position: GeolocationPosition): SafeResourceUrl {
   }
 
   onSubmit() {
-    console.log('form data: ', this.form.value);
 
-    let serializedForm = JSON.stringify(this.form.value);
-    //serializedForm.fullName = serializedForm.fullName + "2";
-    console.log('serializedForm: ', this.form.value);
-
-    this.form.patchValue(serializedForm);
-    this.form.value.fullName = "fullname2";
-    console.log('form data after: ', this.form.value);
+    this.getCurrentPosition();
   }
 
-  private getUrlDummy(): SafeResourceUrl {
-    const longitude = 101.7182277;
-    const latitude = 3.121707;
-
-    return this.domSanitizer.bypassSecurityTrustResourceUrl(
-        `//www.openstreetmap.org/export/embed.html?bbox=${longitude -
-            0.005},${latitude - 0.005},${longitude + 0.005},${latitude +
-            0.005}&marker=${latitude},${
-            longitude
-        }&layer=mapnik`,
-    );
-}
-
-  getCurrentDummyPosition() {
-
-            this.sampleURL = this.domSanitizer.bypassSecurityTrustResourceUrl(this.sampleURL, );
-            console.log("before:--->'" + this.sampleURL + "'");
+  byPassURLSecurity(url: any) {
+     console.log("url from db-->" + url);
+       
+     this.displayURL = this.domSanitizer.bypassSecurityTrustResourceUrl(url, );
+            console.log("before:--->'" + this.displayURL + "'");
       }
 }
 

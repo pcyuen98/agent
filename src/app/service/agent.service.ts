@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Agent } from '../model/agent/agent';
 import { HttpClient } from '@angular/common/http';
+import { GlobalConstants } from 'src/environments/GlobalConstants';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ export class AgentService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getHTTPAgent(): any {
-    return this.httpClient.get('http://219.93.129.18:8080/json/get', { responseType: 'text' });
+  public getHTTPAgent(id: any): any {
+    return this.httpClient.get('http://localhost:8080/json/get?id=' + id, { responseType: 'text' });
   }
 
   getAgent() {
@@ -21,5 +22,17 @@ export class AgentService {
 
   return agent;
 
+  }
+
+  public addPost(agent: any) {
+    
+    return this.httpClient.post(GlobalConstants.agentApiURL + '/json/post', JSON.parse(agent)).subscribe((data: any) => {
+
+    }
+      ,
+      (error) => {
+        console.log(error);
+        //this.confirmationDialogService.confirm(GlobalConstants.errorMessage, GlobalMethods.getError(error));
+      })
   }
 }

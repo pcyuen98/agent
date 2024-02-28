@@ -4,7 +4,7 @@ import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'agent/:method/:id',
     component: ReactiveFormComponent
   },
   {

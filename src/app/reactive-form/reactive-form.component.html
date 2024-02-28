@@ -27,8 +27,24 @@
                             <input type="text" name="contactNumber" formControlName="contactNumber" class="form-control" placeholder="Contact Number"id="contactNumber" />
                         </div>
                     </div>
+                    <div class="col-sm-4 mb-3">
+                        <div class="form-group">
+                            <label>Business/Personal URL</label>
+                            <input type="text" name="url" formControlName="url" class="form-control" placeholder="url"id="url" />
+                        </div>
+                    </div>
+
                 </div>
-                
+
+                <div class="row desc">
+                    <div class="col-sm-4 mb-3">
+                        <div class="form-group">
+                            <label>Message you want to deliver</label>
+                            <textarea placeholder="desc" rows="5" cols="52" formControlName="desc" required></textarea>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row mt-4">
                     <div class="col-sm-12">
                         <h6 class="title">Permanent Address</h6>
@@ -61,6 +77,7 @@
                     </div>
                 </div>
 
+
                 <div class="row GPS">
                     <iframe 
                     width="425"
@@ -69,7 +86,7 @@
                     scrolling="no"
                     marginheight="0"
                     marginwidth="0"
-                    [src]="sampleURL"
+                    [src]="displayURL"
                   ></iframe>
                 </div>
 

@@ -6,6 +6,8 @@ export class Agent {
     public name: any;
   
     public email: any;
+
+    public gpsURL: any;
   
     public mobilePhone: any;
   
@@ -19,5 +21,5 @@ export class Agent {
   
     public url: any;
 
-    public bizDesc: any;
+    public desc: any;
 }
