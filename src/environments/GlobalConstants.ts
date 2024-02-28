@@ -1,6 +1,6 @@
 export class GlobalConstants {
 
-    public static agentApiURL: string = "http://localhost:8080";      
+    public static agentApiURL: string = "http://219.93.129.18:8080";      
 
     public static errorMessage: string = "BackEnd Error Found";
 
