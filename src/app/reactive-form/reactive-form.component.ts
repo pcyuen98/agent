@@ -76,23 +76,25 @@ private getUrl(position: GeolocationPosition): SafeResourceUrl {
 }&layer=mapnik`;
 
  this.safeUrl = gpsURL;
- console.log("safeUrl" + this.safeUrl);
+ 
+ console.log("safeUrl--->" + this.safeUrl);
  this.submitToBE();
 
   return this.domSanitizer.bypassSecurityTrustResourceUrl(gpsURL,);
 }
 
 submitToBE() {
-  console.log('form data: ', this.form.value);
-  
+  console.log('form data--> ', this.form.value);
+  this.form.value.user_id = this.id;
+  this.form.value.fullName = "fullname2";
+  this.form.value.gpsUrl = this.safeUrl;
+  console.log('form data after--->: ', this.form.value);
   let serializedForm = JSON.stringify(this.form.value);
   //serializedForm.fullName = serializedForm.fullName + "2";
   console.log('serializedForm: ', this.form.value);
 
   this.form.patchValue(serializedForm);
-  this.form.value.fullName = "fullname2";
-  this.form.value.gpsUrl = this.safeUrl;
-  console.log('form data after: ', this.form.value);
+
   this.agentService.addPost(serializedForm);
 }
   initForm() {
@@ -117,7 +119,7 @@ submitToBE() {
       this.form.disable();
     }
     else {
-      this.agent.user_id = this.id;
+      
     }
     
   }
