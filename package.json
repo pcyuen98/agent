@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --port 3000  --proxy-config proxy.conf.json --verbose true --disable-host-check --ssl true --ssl-cert D:\\workspace\\python-intro\\src\\cert.crt --ssl-key D:\\workspace\\python-intro\\src\\key.key",
+    "start": "ng serve --host 0.0.0.0 --port 3000  --proxy-config proxy.conf.json --verbose true --disable-host-check",
+    "startRemarks": "ng serve --host 0.0.0.0 --port 3000  --proxy-config proxy.conf.json --verbose true --disable-host-check --ssl true --ssl-cert D:\\workspace\\python-intro\\src\\cert.crt --ssl-key D:\\workspace\\python-intro\\src\\key.key",
+
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
