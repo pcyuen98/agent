@@ -11,10 +11,10 @@ import { GlobalConstants } from 'src/environments/GlobalConstants';
 
 @Component({
   selector: 'app-reactive-form',
-  templateUrl: './reactive-form.component.html',
-  styleUrls: ['./reactive-form.component.scss']
+  templateUrl: './url-form.component.html',
+  styleUrls: ['./url-form.component.scss']
 })
-export class ReactiveFormComponent implements OnInit {
+export class URLFormComponent implements OnInit {
   form: any;
   agent: any;
   user: any;
@@ -175,9 +175,45 @@ submitToBE() {
     return this.agent;
   }
 
+  hyperlink: any;
+  url: any;
+  noURL: any;
   onSubmit() {
+    this.hyperlink = undefined;
+    this.noURL = undefined;
 
-    this.getCurrentPosition();
+    console.log('form data--> ', this.form.value);
+    this.form.value.desc;
+   
+    let str = this.form.value.desc;
+
+    console.log('str--> ', str);
+
+    if (str != undefined || str != null) {
+      var urlRegex = /(https?:\/\/[^ ]*)/;
+
+      try {
+        var res = str.match(urlRegex)[1];
+  
+        res = res.replace('https://','');
+        res = res.replace('http://','');
+        console.log("The extracted URL from given string is: " + res);
+        this.url = res;
+        if (res != undefined || res != null) {
+          this.hyperlink = "https://scamadviser.com/check-website/" + res;
+        }
+        else {
+          this.noURL = "No URL detected";
+        }
+      } catch (e) {
+        console.error(e);
+        this.noURL = "No URL detected";
+      }
+    }
+    else {
+      this.noURL = "No URL detected";
+    }
+
   }
 
   byPassURLSecurity(url: any) {

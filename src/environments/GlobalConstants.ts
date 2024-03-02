@@ -1,6 +1,8 @@
 export class GlobalConstants {
 
-    public static agentApiURL: string = "http://219.93.129.18:8080";      
+    public static agentApiURL: string = "http://eyebot:8080";
+
+    public static successMessage: string = "Info";
 
     public static errorMessage: string = "BackEnd Error Found";
 

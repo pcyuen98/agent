@@ -15,6 +15,10 @@ export class AgentService {
     return this.httpClient.get(GlobalConstants.agentApiURL + '/json/get?id=' + id, { responseType: 'text' });
   }
 
+  public getHTTPUser(id: any): any {
+    return this.httpClient.get(GlobalConstants.agentApiURL + '/json/getUser?id=' + id, { responseType: 'text' });
+  }
+
   getAgent() {
     let agent : Agent = new Agent();
     

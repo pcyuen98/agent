@@ -1,0 +1,51 @@
+<head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+</head>
+
+<script src="https://unpkg.com/extract-urls@1.4.1/index.js"></script>
+<div class="container p-4">
+    <div class="row">
+        <div class="col-sm-12">
+            <h6 class="title">Verify URL Using Scam Adviser</h6>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-12">
+            <form (ngSubmit)="onSubmit()" [formGroup]="form" novalidate class="form-horizontal">
+
+                <div class="row desc">
+                    <div class="col-sm-4 mb-3">
+                        <div class="form-group">
+                            <textarea placeholder="Paste your message here containing URL" rows="5" cols="150" formControlName="desc" required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="hyperlink" class="form-group">
+                    <span><b>One URL Detected</b> ==> {{url}}</span><p></p>
+                    <mark>Click verify to check with scamadviser.com</mark> 
+
+                    <a href={{hyperlink}}> Verify this URL</a>
+                </div>
+                
+                <div *ngIf="noURL" class="form-group">
+                    <mark>No URL Detected</mark>
+                </div>
+                <p></p>
+                <div  class="row url">
+                    <div class="col-sm-4 mb-3">
+                        <button class="btn btn-primary btn-outline bg-olive" type="submit" >Submit</button>
+                    </div>
+                </div>
+
+
+            
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,7 +1,11 @@
+<head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+</head>
+
 <div class="container p-4">
     <div class="row">
         <div class="col-sm-12">
-            <h6 class="title">Customer Form</h6>
+            <h6 class="title">Unknown Person Details</h6>
         </div>
     </div>
     <hr>
@@ -40,14 +44,14 @@
                     <div class="col-sm-4 mb-3">
                         <div class="form-group">
                             <label>Message you want to deliver</label>
-                            <textarea placeholder="desc" rows="5" cols="52" formControlName="desc" required></textarea>
+                            <textarea placeholder="desc" rows="5" cols="150" formControlName="desc" required></textarea>
                         </div>
                     </div>
                 </div>
 
                 <div class="row mt-4">
                     <div class="col-sm-12">
-                        <h6 class="title">Permanent Address</h6>
+                        <h6 class="title">Business Address</h6>
                     </div>
                 </div>
                 <div class="row permanent_addresses" formGroupName="address">
@@ -78,7 +82,13 @@
                 </div>
 
 
-                <div class="row GPS">
+                <div *ngIf="displayURL" class="row GPS">
+                    <div class="row mt-4">
+                        <div class="col-sm-12">
+                            <h6 class="title">GPS Location</h6>
+                        </div>
+                    </div>
+
                     <iframe 
                     width="425"
                     height="350"
@@ -90,9 +100,12 @@
                   ></iframe>
                 </div>
 
-                <div class="row current_address">
-                    <div class="col-sm-4 mb-3">
-                        <button class="btn btn-primary btn-outline" type="submit">Submit</button>
+                <div  class="row current_address">
+                    <div *ngIf="isButtonDisabled" class="col-sm-4 mb-3">
+                        <button class="btn btn-primary btn-outline" type="submit" disabled >Submit</button>
+                    </div>
+                    <div *ngIf="!isButtonDisabled" class="col-sm-4 mb-3">
+                        <button class="btn btn-primary btn-outline" type="submit" >Submit</button>
                     </div>
                 </div>
 

@@ -14,10 +14,15 @@ import {MapComponent} from './map/map.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogService } from './confirmation-dialog/confirmation-dialog.service';
+import { URLFormComponent } from './url-form/url-form.component';
+import { HeaderComponent } from './header/header.component';
 @NgModule({
   declarations: [
-    AppComponent,
-    ReactiveFormComponent,MapComponent
+    AppComponent,ConfirmationDialogComponent,
+    ReactiveFormComponent,MapComponent, URLFormComponent,
+    HeaderComponent,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
@@ -37,9 +42,10 @@ import { HttpClientModule } from '@angular/common/http';
     {
         provide: POSITION_OPTIONS,
         useValue: {enableHighAccuracy: true, timeout: 3000, maximumAge: 1000},
-    }
+    },
     
-    ],
+    ConfirmationDialogService,],
+    
   bootstrap: [AppComponent]
 })
 export class AppModule { }
