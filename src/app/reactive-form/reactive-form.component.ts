@@ -127,6 +127,7 @@ submitToBE() {
     if (isView) {
       this.agent = this.getHTTPAgent(this.id);
       this.form.disable();
+      this.isButtonDisabled = true;
     }
     else {
       this.getHTTPUser(this.id);

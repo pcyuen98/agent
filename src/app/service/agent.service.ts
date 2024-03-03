@@ -42,4 +42,40 @@ export class AgentService {
         //this.confirmationDialogService.confirm(GlobalConstants.errorMessage, GlobalMethods.getError(error));
       })
   }
+
+  public registerPost(user: any) {
+    return this.httpClient.post(GlobalConstants.agentApiURL + '/register/post', JSON.parse(user)
+    );
+  }
+
+  public donatePost(user: any) {
+    console.log("GlobalConstants.agentApiURL--->" + GlobalConstants.agentApiURL);
+    return this.httpClient.post(GlobalConstants.agentApiURL + '/donate/post', JSON.parse(user)
+    );
+  }
+
+  public getScamURL(str: any): any {
+    if (str != undefined || str != null) {
+      var urlRegex = /(https?:\/\/[^ ]*)/;
+      try {
+        var res = str.match(urlRegex)[1];
+  
+        res = res.replace('https://','');
+        res = res.replace('http://','');
+        console.log("The extracted URL from given string is: " + res);
+        if (res != undefined || res != null) {
+          return res;
+        }
+        else {
+          return undefined;
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    else {
+      return undefined;
+    }
+    
+  }
 }

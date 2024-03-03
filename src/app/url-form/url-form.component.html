@@ -6,7 +6,7 @@
 <div class="container p-4">
     <div class="row">
         <div class="col-sm-12">
-            <h6 class="title">Verify URL Using Scam Adviser</h6>
+            <h6 class="title">Verify URL or message from SMS/Email/Messenger Using Scam Adviser</h6>
         </div>
     </div>
     <hr>
@@ -17,33 +17,43 @@
                 <div class="row desc">
                     <div class="col-sm-4 mb-3">
                         <div class="form-group">
-                            <textarea placeholder="Paste your message here containing URL" rows="5" cols="150" formControlName="desc" required></textarea>
+                            <textarea placeholder="Paste your message here containing URL or just URL" rows="5" cols="150" formControlName="desc" required></textarea>
                         </div>
                     </div>
                 </div>
+                <b>How to use</b>: Just paste the url here or message to check. 
 
-                <div *ngIf="hyperlink" class="form-group">
-                    <span><b>One URL Detected</b> ==> {{url}}</span><p></p>
-                    <mark>Do not Enter information on low trust score URL</mark><p></p>
-                    <mark>Click verify to check with scamadviser.com</mark> 
-
-                    <a href={{hyperlink}}> Verify this URL</a>
-                </div>
-                
-                <div *ngIf="noURL" class="form-group">
-                    <mark>No URL Detected</mark>
-                </div>
-                <p></p>
-                <div  class="row url">
+                <div *ngIf="!spinner" class="row url">
                     <div class="col-sm-4 mb-3">
                         <button class="btn btn-primary btn-outline bg-olive" type="submit" >Submit</button>
                     </div>
                 </div>
 
-
-            
             </form>
         </div>
+        
+    </div>
+
+    <div class="loader" *ngIf="spinner">
+    </div>
+    
+    <div *ngIf="noURL" class="form-group">
+        <mark>No URL Detected</mark>
+    </div>
+
+    <div *ngIf="spinner" class="row url">
+        Redirecting page. Please wait a moment
+    </div>
+
+    <div *ngIf="hyperlink" class="form-group">
+        
+        <mark style="background: #e1f5e8!important">
+            <span><b>One URL Detected</b> ==> "{{this.hyperlink}}".</span>
+            Do not Enter information on low trust score URL</mark><p></p>
+        <mark>Click verify to check with scamadviser.com or click donate to sponsor this project</mark><p></p>
+        <button class="btn default" (click)="verify()">Verify this URL</button>
+        <button class="btn default_blue" (click)="donate()">Donate</button>
+        <!--a href="{{hyperlink}}" (click)="verify()"> Verify this URL</a-->
     </div>
 </div>
 

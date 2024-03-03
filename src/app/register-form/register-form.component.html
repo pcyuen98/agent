@@ -1,0 +1,64 @@
+<head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+</head>
+
+<dialog #dialog>
+    <div>
+      Your country:
+      <select>
+        <option value="default">Choose…</option>
+        <option>United States</option>
+        <option>France</option>
+        <option>Australia</option>
+      </select>
+    </div>
+    <div>
+      <button (click)="dialog.close()">OK</button>
+    </div>
+  </dialog>
+
+  
+<script src="https://unpkg.com/extract-urls@1.4.1/index.js"></script>
+<div class="container p-4">
+    <div class="row">
+        <div class="col-sm-12">
+            <h6 class="title">Register with your email to generate a link to reply an unknown sender</h6>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-12">
+            <form (ngSubmit)="onSubmit()" [formGroup]="form" novalidate class="form-horizontal">
+
+                <div class="col-sm-4 mb-3">
+                    <div class="form-group">
+                        <label>E-mail Address</label>
+                        <input type="text" name="email" formControlName="email" class="form-control" placeholder="Your Email"id="email" />
+                    </div>
+                </div>
+
+                
+                    <div *ngIf="desc_email" class="col-sm-40 mb-30">
+                        <div class="form-group">
+                            <span>Your may copy the message below and reply to sender</span><p></p>
+                            <mark>{{this.desc_email}}</mark>
+                        </div>
+                    </div>
+
+                <div *ngIf="!spinner" class="row submmit">
+                    <div class="col-sm-4 mb-3">
+                        <button class="btn btn-primary btn-outline bg-olive" type="submit" >Submit</button>
+                    </div>
+                </div>
+
+                <div class="loader" *ngIf="spinner">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+

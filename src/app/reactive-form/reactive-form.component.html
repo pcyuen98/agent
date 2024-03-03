@@ -100,16 +100,11 @@
                   ></iframe>
                 </div>
 
-                <div  class="row current_address">
+                <div *ngIf="!isButtonDisabled" class="row submit">
                     <div *ngIf="isButtonDisabled" class="col-sm-4 mb-3">
-                        <button class="btn btn-primary btn-outline" type="submit" disabled >Submit</button>
-                    </div>
-                    <div *ngIf="!isButtonDisabled" class="col-sm-4 mb-3">
                         <button class="btn btn-primary btn-outline" type="submit" >Submit</button>
                     </div>
                 </div>
-
-
             
             </form>
         </div>
