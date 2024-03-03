@@ -1,9 +1,3 @@
 {
-	"/json/*": {
-      "target": "http://eyebot:8080",
-      "secure": false,
-	  "logLevel": "debug",
-    "changeOrigin": true,
-    "pathRewrite": { "^/json/get": "", "^/json/post": "" }
-      }
+
     }

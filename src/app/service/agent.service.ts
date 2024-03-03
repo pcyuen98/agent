@@ -49,8 +49,10 @@ export class AgentService {
   }
 
   public donatePost(user: any) {
+    const headers = { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' };
+
     console.log("GlobalConstants.agentApiURL--->" + GlobalConstants.agentApiURL);
-    return this.httpClient.post(GlobalConstants.agentApiURL + '/donate/post', JSON.parse(user)
+    return this.httpClient.post(GlobalConstants.agentApiURL + '/donate/post', JSON.parse(user), {headers}
     );
   }
 
