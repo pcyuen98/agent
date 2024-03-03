@@ -1,6 +1,6 @@
 export class GlobalConstants {
 
-    public static agentApiURL: string = "http://eyebot:8080";
+    public static agentApiURL: string = "http://219.93.129.18:8080";
     
     public static agentURL: string = "https://eyebot.name.my:3000/agent/update/"
 
