@@ -23,7 +23,7 @@
                 </div>
                 <b>How to use</b>: Just paste the url here or message to check. 
 
-                <div *ngIf="!spinner" class="row url">
+                <div class="row url">
                     <div class="col-sm-4 mb-3">
                         <button class="btn btn-primary btn-outline bg-olive" type="submit" >Submit</button>
                     </div>
@@ -34,16 +34,16 @@
         
     </div>
 
-    <div class="loader" *ngIf="spinner">
-    </div>
+    <!--div class="loader" *ngIf="spinner">
+    </div-->
     
     <div *ngIf="noURL" class="form-group">
         <mark>No URL Detected</mark>
     </div>
 
-    <div *ngIf="spinner" class="row url">
-        Redirecting page. Please wait a moment
-    </div>
+    <!-- div *ngIf="spinner" class="row url">
+        Redirecting page. Please wait a moment        
+    </div-->
 
     <div *ngIf="hyperlink" class="form-group">
         

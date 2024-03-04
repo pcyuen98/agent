@@ -40,8 +40,13 @@ export class URLFormComponent implements OnInit {
     this.router.navigateByUrl('donate');
      }
 
+  reload() {
+    window.location.reload()
+  }
+
   verify() {
     this.spinner = true;
+    this.form.reset();
     (window as any).open("https://scamadviser.com/check-website/" + this.hyperlink);    }
 
   initForm() {
@@ -62,7 +67,6 @@ export class URLFormComponent implements OnInit {
 
     console.log('str--> ', str);
     this.hyperlink = this.agentService.getScamURL(str);
-
     if (!this.hyperlink) {
       this.noURL = "No URL detected";
     }
